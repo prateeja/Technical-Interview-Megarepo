@@ -20,6 +20,9 @@
 ## Papers
 * [An Introduction to Programming with Threads](https://s3.amazonaws.com/content.udacity-data.com/courses/ud923/references/ud923-birrell-paper.pdf)
 
+## Articles
+* [Grok the GIL: How to write fast and thread-safe Python](https://opensource.com/article/17/4/grok-gil)
+
 ## System Calls
 * Requests to the kernel to perform some privileged operation
 * "A system call is the programmatic way in which a computer program requests a service from the kernel of the operating system it is executed on. This may include hardware-related services (for example, accessing a hard disk drive), creation and execution of new processes, and communication with integral kernel services such as process scheduling. System calls provide an essential interface between a process and the operating system." [[Wikipedia - System Call](https://en.wikipedia.org/wiki/System_call)]
@@ -31,6 +34,9 @@
 * "A process is an instance of a computer program that is being executed. It contains the program code and its current activity. Depending on the operating system (OS), a process may be made up of multiple threads of execution that execute instructions concurrently" [[Wikipedia - Process](https://en.wikipedia.org/wiki/Process_(computing))].
 * "A thread of execution is the smallest sequence of programmed instructions that can be managed independently by a scheduler, which is typically a part of the operating system." [[Wikipedia - Thread](https://en.wikipedia.org/wiki/Thread_(computing))]
 * Often, threads of the same process share the same address space and system resources.
+
+## IPC
+[Interprocess Communication](http://advancedlinuxprogramming.com/alp-folder/alp-ch05-ipc.pdf)
 
 ## Concurrency
 * "Concurrent computing is a form of computing in which several computations are executing during overlapping time periods—concurrently—instead of sequentially (one completing before the next starts)." [[Wikipedia - Concurrent Computing](https://en.wikipedia.org/wiki/Concurrent_computing)]
@@ -59,29 +65,35 @@
 
 ### Deadlock, Livelock
 * In concurrent programs, there may be executions (resulting from bugs) in which threads cease to make progress. Deadlock and livelock are two such cases.
-* Deadlock
-  * Deadlock usually occur in the context of locks.
-  * A deadlock occurs when two processes become mutually dependent. That is, process A cannot make progress until B finishes, and B cannot make progress until A finishes.
-  * For example, process A locks access to the printer and tries to get access to file `foo.txt`, which it wants to print. Meanwhile, process B locks access to the file and then tries to get access to the printer. Imagine the following sequence of events:
-      * A locks printer
-      * B locks file
-      * A attempts to lock file, but blocks because B has already locked it
-      * B attempts to lock printer, but blocks because A has already locked it
-   * How to avoid deadlock
-     * Careful design: if all threads acquire locks in the same order, they cannot deadlock. In the example above, if A and B try to lock the file first, neither can deadlock, though one may block temporarily.
-     * Detection schemes: Some systems, such as database systems, try to detect deadlocks when they happen. Then, they kill one of the processes deadlocking and release its resources so the others can proceed.
-     * Dependency graphs can be constructed by representing each thread as a node. If A needs a resource that B has currently, a directed edge is drawn from A to B. If this graph has a cycle the processes in the cycle are deadlocked.
-* Livelock
-   * A livelock occurs when two processes continually change state but do not make progress.
-   * For example,
-      * A locks printer
-      * B locks file
-      * A attempts to lock file, but cannot because B has already locked it
-      * B attempts to lock printer, but blocks because A has already locked it
-      * A releases the printer and waits for the file to be unlocked
-      * B releases the file and waits for the printer to be unlocked
-      * A notices that the file is unlocked and tries again
-      * B notices that the printer is unlocked and tries again
-      * Repeat forever
-   * How to avoid livelock
-     * Variable timeouts
+
+#### Deadlock
+![deadlock](http://cse.csusb.edu/tongyu/courses/cs660/images/deadlock/lock.gif)
+
+* Deadlock usually occur in the context of locks.
+* A deadlock occurs when two processes become mutually dependent. That is, process A cannot make progress until B finishes, and B cannot make progress until A finishes.
+* For example, process A locks access to the printer and tries to get access to file `foo.txt`, which it wants to print. Meanwhile, process B locks access to the file and then tries to get access to the printer. Imagine the following sequence of events:
+   * A locks printer
+   * B locks file
+   * A attempts to lock file, but blocks because B has already locked it
+   * B attempts to lock printer, but blocks because A has already locked it
+* How to avoid deadlock
+  * Careful design: if all threads acquire locks in the same order, they cannot deadlock. In the example above, if A and B try to lock the file first, neither can deadlock, though one may block temporarily.
+  * Detection schemes: Some systems, such as database systems, try to detect deadlocks when they happen. Then, they kill one of the processes deadlocking and release its resources so the others can proceed.
+  * Dependency graphs can be constructed by representing each thread as a node. If A needs a resource that B has currently, a directed edge is drawn from A to B. If this graph has a cycle the processes in the cycle are deadlocked.
+ 
+#### Livelock
+![livelock](https://image.slidesharecdn.com/29-deadlocks-sp082-111116105142-phpapp02/95/deadlocks-in-operating-system-31-638.jpg?cb=1422635342)
+
+* A livelock occurs when two processes continually change state but do not make progress.
+* For example,
+   * A locks printer
+   * B locks file
+   * A attempts to lock file, but cannot because B has already locked it
+   * B attempts to lock printer, but blocks because A has already locked it
+   * A releases the printer and waits for the file to be unlocked
+   * B releases the file and waits for the printer to be unlocked
+   * A notices that the file is unlocked and tries again
+   * B notices that the printer is unlocked and tries again
+   * Repeat forever
+* How to avoid livelock
+  * Variable timeouts

@@ -1,4 +1,5 @@
 # System Design
+https://github.com/donnemartin/system-design-primer
 
 ## Udacity, Software Development Process - Notes
 [Course Homepage](https://www.udacity.com/course/software-development-process--ud805)
@@ -8,6 +9,8 @@
 3. [Integrated Development Environment](https://docs.google.com/document/d/1aUqOnyissB7zJkH1OWEb2KSd9-tyP_ZwRWo6FMYUCZQ/pub)
 4. [Version Control](https://docs.google.com/document/d/170g6s3JR6K0pKT_Ni0oGdxgmCv9fvtBWH7DKmlBXFd0/pub)
 5. [Requirements Engineering](https://docs.google.com/document/d/1sSsmTQrhDu5jKUfMrOaX-uUEZPXQD7kIntZFSLazoaA/pub)
+6. [OO Software Engineering](https://docs.google.com/document/d/1gzr0sWh-OkaONLUEdLOtDcG1AIZUmvyMiAkWPh--Sc8/pub)
+7. [Software Architecture](https://docs.google.com/document/d/1XCJWYaSKpHa8FIiDh4rFqwDdxwBbXlcg2Ictu7QzB6E/pub)
 
 ## Books
 * [Design Patterns: Elements of Reusable Object-Oriented Software](http://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612)
@@ -16,6 +19,7 @@
 ## Design Patterns
 * [Wikipedia - Software Design Pattern](https://en.wikipedia.org/wiki/Software_design_pattern)
 * "In software engineering, a software design pattern is a general reusable solution to a commonly occurring problem within a given context in software design. It is not a finished design that can be transformed directly into source or machine code. It is a description or template for how to solve a problem that can be used in many different situations."
+* [Design patterns for humans](https://github.com/kamranahmedse/design-patterns-for-humans)
 
 ### Creational Patterns
 * [Wikipedia - Creational Pattern](https://en.wikipedia.org/wiki/Creational_pattern)
